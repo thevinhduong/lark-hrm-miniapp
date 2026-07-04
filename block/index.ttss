@@ -1,0 +1,10 @@
+/* Lark Block Styles (ttss format) */
+/* These styles are used when running in the Lark Block runtime */
+
+.lark-block-container {
+  width: 100%;
+  min-height: 100%;
+  background-color: #fbf9f8;
+  font-family: 'Inter', system-ui, sans-serif;
+  padding: 16px;
+}

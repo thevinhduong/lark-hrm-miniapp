@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   Kinetic Polaris Design System
+   Base Styles & Custom Properties
+   ============================================ */
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    background-color: #f1f1f1;
+  }
+
+  body {
+    background-color: #fbf9f8;
+    color: #1b1c1c;
+    min-height: 100dvh;
+  }
+
+  /* Custom scrollbar for filter tabs */
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Material Symbols icon sizing */
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .material-symbols-filled {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+}
+
+@layer components {
+  /* Status Badge Variants */
+  .badge-approved {
+    @apply bg-success-bg text-success-text;
+  }
+
+  .badge-pending {
+    @apply bg-warning-bg text-warning-text;
+  }
+
+  .badge-rejected {
+    @apply bg-critical-bg text-critical-text;
+  }
+
+  /* Polaris Button Styles */
+  .btn-primary {
+    @apply bg-primary text-on-primary rounded-lg font-medium text-body-md;
+    @apply shadow-inset-tactile transition-all duration-150;
+    @apply active:opacity-90 active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply bg-surface-container-lowest text-on-surface rounded-lg font-medium text-body-md;
+    @apply border border-outline-variant transition-all duration-150;
+    @apply hover:bg-surface-container-low active:opacity-80 active:scale-[0.98];
+  }
+
+  /* Input field Polaris style */
+  .input-polaris {
+    @apply bg-surface-container-lowest rounded-lg border border-outline-variant;
+    @apply text-body-md text-on-surface placeholder:text-outline;
+    @apply focus:ring-2 focus:ring-secondary focus:border-secondary focus:ring-offset-1;
+    @apply transition-all duration-150;
+  }
+
+  /* Card Polaris style */
+  .card-polaris {
+    @apply bg-surface-container-lowest rounded-xl border border-outline-variant;
+    @apply shadow-polaris hover:border-outline transition-colors duration-200;
+  }
+}
