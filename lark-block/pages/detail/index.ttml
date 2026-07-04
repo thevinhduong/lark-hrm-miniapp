@@ -1,173 +1,168 @@
 <view class="page-container">
-  <back-app-bar
-    title="Chi tiết yêu cầu"
-    rightIcon="more_horiz"
-    bind:back="onBack"
-    bind:righttap="onMoreTap"
-  />
+  <back-app-bar title="Chi tiết yêu cầu" rightIcon="more_horiz" bind:back="onBack" bind:righttap="onMoreTap" />
 
   <scroll-view class="main-content" scroll-y="true" enhanced="true" show-scrollbar="{{false}}">
-    <!-- ===== Hero card ===== -->
-    <view class="card hero-card">
-      <view class="hero-header">
-        <text class="hero-title">{{jobOrder.title}}</text>
-        <status-badge status="{{jobOrder.status}}" label="{{jobOrder.statusLabel}}" />
+    <view class="content-wrap">
+      <!-- ===== Hero card ===== -->
+      <view class="card hero-card">
+        <view class="hero-header">
+          <text class="hero-title">{{jobOrder.title}}</text>
+          <status-badge status="{{jobOrder.status}}" label="{{jobOrder.statusLabel}}" />
+        </view>
+
+        <view class="hero-facts">
+          <view class="fact-block">
+            <text class="fact-label">Phòng ban:</text>
+            <text class="fact-value">{{jobOrder.department}}</text>
+          </view>
+          <view class="fact-block">
+            <text class="fact-label">Cấp bậc:</text>
+            <text class="fact-value">{{jobOrder.level}}</text>
+          </view>
+          <view class="fact-block">
+            <text class="fact-label">Số lượng:</text>
+            <text class="fact-value">{{jobOrder.count}}</text>
+          </view>
+          <view class="fact-block">
+            <text class="fact-label">Mã yêu cầu:</text>
+            <view class="fact-code-row">
+              <text class="fact-value">{{jobOrder.requestCode}}</text>
+              <text class="material-icon copy-icon" bindtap="onCopyCode">content_copy</text>
+            </view>
+          </view>
+        </view>
+
+        <view class="hero-footer">
+          <view class="requester-avatar-wrap">
+            <image class="requester-avatar" src="{{jobOrder.requesterAvatar}}" mode="aspectFill" />
+          </view>
+          <view class="requester-info">
+            <text class="requester-label">Người yêu cầu</text>
+            <text class="requester-name">{{jobOrder.requesterName}}</text>
+          </view>
+          <view class="requester-date">
+            <text class="requester-label">Ngày tạo</text>
+            <text class="requester-date-value">{{jobOrder.requestDate}} {{jobOrder.requestTime}}</text>
+          </view>
+        </view>
       </view>
 
-      <!-- Skills -->
-      <view class="hero-skills" wx:if="{{jobOrder.skills && jobOrder.skills.length}}">
-        <block wx:for="{{jobOrder.skills}}" wx:key="*this">
-          <skill-tag label="{{item}}" />
-        </block>
+      <!-- ===== Thông tin yêu cầu ===== -->
+      <view class="card info-card">
+        <text class="section-title">Thông tin yêu cầu</text>
+
+        <view class="info-row">
+          <view class="info-icon-wrap">
+            <text class="material-icon info-icon">corporate_fare</text>
+          </view>
+          <view class="info-content">
+            <text class="info-label">Lý do tuyển dụng</text>
+            <text class="info-text">{{jobOrder.recruitmentReason}}</text>
+          </view>
+        </view>
+
+        <view class="info-row" wx:if="{{jobOrder.requiredSkills && jobOrder.requiredSkills.length}}">
+          <view class="info-icon-wrap">
+            <text class="material-icon info-icon">code</text>
+          </view>
+          <view class="info-content">
+            <text class="info-label">Kỹ năng yêu cầu</text>
+            <view class="skill-chips">
+              <block wx:for="{{jobOrder.requiredSkills}}" wx:key="*this">
+                <text class="skill-chip">{{item}}</text>
+              </block>
+            </view>
+          </view>
+        </view>
+
+        <view class="info-row" wx:if="{{jobOrder.workArrangement}}">
+          <view class="info-icon-wrap">
+            <text class="material-icon info-icon">work_outline</text>
+          </view>
+          <view class="info-content">
+            <text class="info-label">Hình thức làm việc</text>
+            <text class="info-text">{{jobOrder.workArrangement}}</text>
+          </view>
+        </view>
+
+        <view class="info-row" wx:if="{{jobOrder.budget}}">
+          <view class="info-icon-wrap">
+            <text class="material-icon info-icon">payments</text>
+          </view>
+          <view class="info-content">
+            <text class="info-label">Ngân sách</text>
+            <text class="info-text budget">{{jobOrder.budget}}</text>
+          </view>
+        </view>
       </view>
 
-      <!-- Fact grid -->
-      <view class="hero-facts">
-        <fact-item icon="apartment" label="Phòng ban" value="{{jobOrder.department}}" />
-        <fact-item icon="trending_up" label="Cấp bậc" value="{{jobOrder.level}}" />
-        <fact-item icon="group" label="Số lượng" value="{{jobOrder.count}} người" />
-        <fact-item icon="location_on" label="Địa điểm" value="{{jobOrder.location}}" />
-        <fact-item icon="work" label="Hình thức" value="{{jobOrder.workType}}" />
-        <fact-item icon="payments" label="Mức lương" value="{{jobOrder.salary}}" />
-        <fact-item icon="event" label="Hạn nộp" value="{{jobOrder.deadline}}" />
-        <fact-item icon="schedule" label="Ngày tạo" value="{{jobOrder.requestDate}}" />
-      </view>
-    </view>
-
-    <!-- ===== Thông tin vị trí cần ===== -->
-    <view class="card">
-      <section-header icon="description" title="Thông tin vị trí cần" />
-
-      <text class="body-text">{{jobOrder.description}}</text>
-
-      <!-- Requirements -->
-      <view class="subsection">
-        <text class="subsection-title">Yêu cầu chính</text>
-        <view class="req-list">
-          <block wx:for="{{jobOrder.requirements}}" wx:key="*this">
-            <view class="req-item">
-              <text class="req-icon material-icon">verified</text>
-              <text class="req-text">{{item}}</text>
+      <!-- ===== Quy trình phê duyệt (Stitch layout) ===== -->
+      <view class="card workflow-card" wx:if="{{jobOrder.workflow && jobOrder.workflow.length}}">
+        <text class="section-title">Quy trình phê duyệt</text>
+        <view class="workflow-list">
+          <block wx:for="{{jobOrder.workflow}}" wx:key="id" wx:for-item="step">
+            <view class="workflow-step {{step.statusColor}} {{step.status === 'active' ? 'pulse-active' : ''}}">
+              <view class="step-circle {{step.statusColor}}">
+                <text class="material-icon step-check" wx:if="{{step.status === 'done'}}">check</text>
+                <text class="step-number" wx:else>{{step.stepNumber}}</text>
+              </view>
+              <view class="step-body">
+                <view class="step-row">
+                  <view class="step-meta">
+                    <text class="step-title {{step.status === 'pending' ? 'pending' : ''}}">{{step.title}}</text>
+                    <text class="step-person">{{step.person}}</text>
+                    <text class="step-status {{step.statusColor}}" wx:if="{{step.statusLabel}}">{{step.statusLabel}}</text>
+                  </view>
+                  <view class="step-time">
+                    <text class="time-rel" wx:if="{{step.relativeTime}}">{{step.relativeTime}}</text>
+                    <text class="time-abs" wx:if="{{step.timestamp}}">{{step.timestamp}}</text>
+                  </view>
+                </view>
+              </view>
             </view>
           </block>
         </view>
       </view>
 
-      <!-- Skills (full list with note) -->
-      <view class="subsection" wx:if="{{jobOrder.skills && jobOrder.skills.length}}">
-        <text class="subsection-title">Kỹ năng cần thiết</text>
-        <view class="skill-row">
-          <block wx:for="{{jobOrder.skills}}" wx:key="*this">
-            <skill-tag label="{{item}}" />
-          </block>
+      <!-- ===== Ứng viên liên quan ===== -->
+      <view class="card related-card" wx:if="{{relatedCandidates.length > 0}}">
+        <view class="related-header">
+          <text class="section-title no-margin">Ứng viên liên quan ({{candidateSummary.total}})</text>
+          <text class="related-view-all" bindtap="onViewAllCandidates">Xem tất cả</text>
         </view>
-      </view>
-
-      <!-- Benefits -->
-      <view class="subsection" wx:if="{{jobOrder.benefits && jobOrder.benefits.length}}">
-        <text class="subsection-title">Phúc lợi</text>
-        <view class="req-list">
-          <block wx:for="{{jobOrder.benefits}}" wx:key="*this">
-            <view class="req-item">
-              <text class="req-icon star material-icon">star</text>
-              <text class="req-text">{{item}}</text>
+        <view class="related-list">
+          <block wx:for="{{relatedCandidates}}" wx:key="id" wx:for-item="c">
+            <view class="related-item">
+              <view class="related-avatar-wrap">
+                <image class="related-avatar" src="{{c.avatar}}" mode="aspectFill" />
+              </view>
+              <view class="related-meta">
+                <text class="related-name">{{c.name}}</text>
+                <text class="related-email">{{c.email}}</text>
+              </view>
+              <text class="related-stage-badge {{c.stage}}">{{stageLabelMap[c.stage]}}</text>
             </view>
           </block>
         </view>
       </view>
-    </view>
 
-    <!-- ===== Quy trình phê duyệt ===== -->
-    <view class="card">
-      <section-header icon="account_tree" title="Quy trình phê duyệt" />
-
-      <view class="workflow">
-        <block wx:for="{{jobOrder.workflow}}" wx:key="title">
-          <workflow-step
-            status="{{item.status}}"
-            title="{{item.title}}"
-            meta="{{item.meta}}"
-            stepNumber="{{index + 1}}"
-            isLast="{{index === jobOrder.workflow.length - 1}}"
-          />
-        </block>
-      </view>
-    </view>
-
-    <!-- ===== Hiring Manager ===== -->
-    <view class="card contact-card" wx:if="{{jobOrder.hiringManager}}">
-      <section-header icon="supervisor_account" title="Hiring Manager" />
-      <view class="contact-row">
-        <view class="contact-avatar-wrap">
-          <image
-            class="contact-avatar"
-            src="{{jobOrder.hiringManager.avatar}}"
-            mode="aspectFill"
-          />
+      <!-- ===== Comments empty state ===== -->
+      <view class="card comment-empty">
+        <view class="comment-icon-circle">
+          <text class="material-icon comment-icon">forum</text>
         </view>
-        <view class="contact-meta">
-          <text class="contact-name">{{jobOrder.hiringManager.name}}</text>
-          <text class="contact-title">{{jobOrder.hiringManager.title}}</text>
-        </view>
-      </view>
-    </view>
-
-    <!-- ===== Requester ===== -->
-    <view class="card contact-card">
-      <section-header icon="person" title="Người yêu cầu" />
-      <view class="contact-row">
-        <view class="contact-avatar-wrap">
-          <image class="contact-avatar" src="{{jobOrder.requesterAvatar}}" mode="aspectFill" />
-        </view>
-        <view class="contact-meta">
-          <text class="contact-name">{{jobOrder.requesterName}}</text>
-          <text class="contact-title">Đã tạo yêu cầu ngày {{jobOrder.requestDate}}</text>
-        </view>
-      </view>
-    </view>
-
-    <!-- ===== Ứng viên liên quan ===== -->
-    <view class="card related-card">
-      <section-header
-        icon="groups"
-        title="Ứng viên liên quan đến {{jobOrder.title}}"
-        actionLabel="Xem tất cả"
-        bind:actiontap="onViewAllCandidates"
-      />
-      <view class="related-summary">
-        <text class="related-count">{{candidateSummary.total}}</text>
-        <text class="related-label">hồ sơ</text>
-        <view class="related-stages">
-          <text class="stage-pill stage-screening">{{candidateSummary.screening + candidateSummary.applied}} sàng lọc</text>
-          <text class="stage-pill stage-interview">{{candidateSummary.interview}} phỏng vấn</text>
-          <text class="stage-pill stage-offer">{{candidateSummary.offer}} đề xuất</text>
-          <text class="stage-pill stage-hired">{{candidateSummary.hired}} đã tuyển</text>
-        </view>
-      </view>
-    </view>
-
-    <!-- ===== Comments / share ===== -->
-    <view class="card comment-card">
-      <section-header icon="forum" title="Chia sẻ với bình luận" />
-      <textarea
-        class="comment-input"
-        placeholder="Nhập bình luận của bạn về yêu cầu tuyển dụng này..."
-        value="{{commentText}}"
-        bindinput="onCommentInput"
-        auto-height="true"
-        maxlength="500"
-      />
-      <view class="comment-actions">
-        <view class="comment-btn secondary" bindtap="onAttachTap">
-          <text class="material-icon">attach_file</text>
-          <text>Đính kèm</text>
-        </view>
-        <view class="comment-btn primary" bindtap="onSubmitComment">
+        <text class="comment-title">Chưa có bình luận</text>
+        <text class="comment-subtitle">Hãy bắt đầu thảo luận với nhóm tuyển dụng</text>
+        <view class="comment-cta" bindtap="onAddComment">
           <text>Thêm bình luận</text>
         </view>
       </view>
     </view>
   </scroll-view>
 
-  <bottom-nav activeTab="{{bottomNavTab}}" bind:tabChange="onBottomNavChange" />
+  <bottom-nav
+    tabs="{{bottomNavTabs}}"
+    activeTab="{{bottomNavTab}}"
+    bind:tabChange="onBottomNavChange"
+  />
 </view>

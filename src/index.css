@@ -51,6 +51,18 @@
   .material-symbols-filled {
     font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
   }
+
+  /* Workflow step pulse animation (active step in approval timeline) */
+  .pulse-active {
+    box-shadow: 0 0 0 0 rgba(0, 85, 199, 0.5);
+    animation: pulse-ring 2s infinite;
+  }
+
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(0, 85, 199, 0.5); }
+    70% { box-shadow: 0 0 0 8px rgba(0, 85, 199, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 85, 199, 0); }
+  }
 }
 
 @layer components {
@@ -92,5 +104,17 @@
   .card-polaris {
     @apply bg-surface-container-lowest rounded-xl border border-outline-variant;
     @apply shadow-polaris hover:border-outline transition-colors duration-200;
+  }
+
+  /* Workflow step vertical connector line (per Stitch design) */
+  .workflow-step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 28px;
+    bottom: 0;
+    width: 2px;
+    background-color: #efeded;
+    z-index: 0;
   }
 }

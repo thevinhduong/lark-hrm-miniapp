@@ -8,6 +8,17 @@ export type JobLevel = 'Junior' | 'Mid-level' | 'Senior' | 'Lead' | 'Manager' | 
 
 export type WorkType = 'Onsite' | 'Remote' | 'Hybrid'
 
+export interface WorkflowStep {
+  id: string
+  title: string
+  person: string
+  status: 'done' | 'active' | 'pending'
+  statusLabel: string
+  statusColor: 'success' | 'active' | 'outline'
+  relativeTime?: string
+  timestamp?: string
+}
+
 export interface JobOrder {
   id: string
   title: string
@@ -15,10 +26,17 @@ export interface JobOrder {
   level: JobLevel
   count: number
   status: RecruitmentStatus
+  requestCode?: string
   requesterName: string
   requesterAvatar: string
   requestDate: string
-  // Detail fields
+  requestTime?: string
+  // Detail fields (Stitch layout)
+  recruitmentReason?: string
+  requiredSkills?: string[]
+  workArrangement?: string
+  budget?: string
+  // Legacy fields (still used by list page)
   description?: string
   requirements?: string[]
   benefits?: string[]
@@ -34,6 +52,7 @@ export interface JobOrder {
     avatar: string
   }
   skills?: string[]
+  workflow?: WorkflowStep[]
 }
 
 export type TabFilter = 'pending' | 'approved' | 'cc' | 'rejected'

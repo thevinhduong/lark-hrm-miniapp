@@ -1,13 +1,12 @@
-<!-- Bottom Navigation Component -->
-<view class="bottom-nav">
-  <block wx:for="{{navItems}}" wx:key="label">
-    <view
-      class="nav-item {{item.label === activeTab ? 'nav-active' : 'nav-inactive'}}"
-      bindtap="onNavTap"
+<view class="bottom-nav {{navClass}}">
+  <block wx:for="{{tabs}}" wx:key="key">
+    <button
+      class="nav-item {{item.label === activeTab ? 'active' : ''}}"
       data-tab="{{item.label}}"
+      bindtap="onTabTap"
     >
-      <text class="nav-icon {{item.label === activeTab ? 'icon-filled' : ''}}">{{item.icon}}</text>
+      <text class="material-icon {{item.label === activeTab && item.iconFill ? 'filled' : ''}}">{{item.icon}}</text>
       <text class="nav-label">{{item.label}}</text>
-    </view>
+    </button>
   </block>
 </view>

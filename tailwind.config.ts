@@ -103,6 +103,7 @@ export default {
       fontSize: {
         'display-lg': ['40px', { lineHeight: '48px', letterSpacing: '-0.54px', fontWeight: '700' }],
         'headline-2xl': ['30px', { lineHeight: '40px', letterSpacing: '-0.3px', fontWeight: '700' }],
+        'headline-2xl-mobile': ['24px', { lineHeight: '32px', letterSpacing: '-0.2px', fontWeight: '700' }],
         'headline-lg': ['20px', { lineHeight: '24px', letterSpacing: '-0.2px', fontWeight: '650' }],
         'headline-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '650' }],
         'body-lg': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '450' }],

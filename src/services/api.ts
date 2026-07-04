@@ -121,19 +121,27 @@ export async function fetchCandidates(
 /**
  * Aggregate stage counts for a job order (for the candidate management page header)
  */
+export interface CandidateStageSummary extends Record<CandidateStage, number> {
+  total: number
+}
+
 export function summarizeCandidateStages(
   jobOrderId: string,
-): Record<CandidateStage, number> {
+): CandidateStageSummary {
   const candidates = mockCandidates.filter(c => c.jobOrderId === jobOrderId)
-  const summary: Record<CandidateStage, number> = {
+  const summary: CandidateStageSummary = {
     applied: 0,
     screening: 0,
     interview: 0,
     offer: 0,
     hired: 0,
     rejected: 0,
+    total: 0,
   }
-  for (const c of candidates) summary[c.stage]++
+  for (const c of candidates) {
+    summary[c.stage]++
+    summary.total++
+  }
   return summary
 }
 
