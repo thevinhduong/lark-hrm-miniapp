@@ -21,6 +21,11 @@ const STAGE_LABELS = {
   rejected: 'Từ chối',
 }
 
+const CURRENT_USER = {
+  name: 'Bạn (You)',
+  avatar: 'https://ui-avatars.com/api/?name=You&background=0055c7&color=fff&bold=true&size=128',
+}
+
 Page({
   data: {
     jobOrder: null,
@@ -34,6 +39,10 @@ Page({
       rejected: 0,
       total: 0,
     },
+    comments: [],
+    userCommentCount: 0,
+    draftComment: '',
+    currentUser: CURRENT_USER,
     bottomNavTabs: BOTTOM_NAV_TABS,
     bottomNavTab: 'Bình luận',
     loading: true,
@@ -58,7 +67,6 @@ Page({
       return
     }
 
-    // Decorate workflow steps with stepNumber
     const workflow = (jobOrder.workflow || []).map((s, idx) => ({
       ...s,
       stepNumber: idx + 1,
@@ -67,11 +75,15 @@ Page({
     const candidateSummary = app.globalData.summarizeCandidateStages(id)
     const allCandidates = app.globalData.getCandidatesByJobId(id)
     const relatedCandidates = allCandidates.slice(0, 3)
+    const comments = app.globalData.getCommentsByJobId(id)
+    const userCommentCount = comments.filter(c => c.author.kind === 'user').length
 
     this.setData({
       jobOrder: { ...jobOrder, workflow },
       relatedCandidates,
       candidateSummary,
+      comments,
+      userCommentCount,
       loading: false,
     })
   },
@@ -108,8 +120,30 @@ Page({
     })
   },
 
-  onAddComment() {
-    tt.showToast({ title: 'Tính năng bình luận đang phát triển', icon: 'none' })
+  onCommentInput(e) {
+    this.setData({ draftComment: e.detail.value })
+  },
+
+  onSubmitComment() {
+    const text = (this.data.draftComment || '').trim()
+    if (!text) return
+    const newComment = app.globalData.addCommentToMock(
+      this.data.jobOrder.id,
+      text,
+      CURRENT_USER,
+    )
+    const comments = [newComment, ...this.data.comments]
+    const userCommentCount = comments.filter(c => c.author.kind === 'user').length
+    this.setData({ comments, userCommentCount, draftComment: '' })
+    tt.showToast({ title: 'Đã gửi bình luận', icon: 'success' })
+  },
+
+  onAttach() {
+    tt.showToast({ title: 'Tính năng đính kèm đang phát triển', icon: 'none' })
+  },
+
+  onImage() {
+    tt.showToast({ title: 'Tính năng ảnh đang phát triển', icon: 'none' })
   },
 
   onBottomNavChange(e) {
@@ -126,6 +160,5 @@ Page({
         itemList: ['In', 'Xuất PDF', 'Báo cáo'],
       })
     }
-    // 'Bình luận' is current page — do nothing
   },
 })

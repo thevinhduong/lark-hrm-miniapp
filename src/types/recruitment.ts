@@ -105,3 +105,42 @@ export interface CandidateStageConfig {
   label: string
   color: 'success' | 'warning' | 'info' | 'secondary' | 'primary' | 'critical'
 }
+
+// ============================================
+// Comment Types
+// ============================================
+
+export interface CommentMention {
+  name: string
+  userId?: string
+}
+
+export interface CommentAuthorUser {
+  kind: 'user'
+  name: string
+  avatar: string
+}
+
+export interface CommentAuthorSystem {
+  kind: 'system'
+  /** System event type: 'auto_cc' = auto-CC'd people, etc. */
+  eventType: 'auto_cc' | 'workflow' | 'status_change'
+  /** System display name (e.g., "System", "Workflow") */
+  name: string
+}
+
+export type CommentAuthor = CommentAuthorUser | CommentAuthorSystem
+
+export interface Comment {
+  id: string
+  jobOrderId: string
+  author: CommentAuthor
+  /** Body content — can include plain text + @mentions */
+  content: string
+  /** Named mentions referenced in `content` (rendered as blue links) */
+  mentions?: CommentMention[]
+  /** List of user names who have read this (system events only) */
+  readBy?: string[]
+  timestamp: string // "02/07/2026 16:33" format
+  relativeTime?: string // "2 ngày trước" optional
+}

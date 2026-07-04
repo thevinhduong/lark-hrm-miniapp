@@ -4,8 +4,9 @@ import type {
   SortOption,
   Candidate,
   CandidateStage,
+  Comment,
 } from '@/types/recruitment'
-import { mockJobOrders, mockCandidates } from './mockData'
+import { mockJobOrders, mockCandidates, mockComments } from './mockData'
 
 // Simulate API delay
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
@@ -143,6 +144,49 @@ export function summarizeCandidateStages(
     summary.total++
   }
   return summary
+}
+
+/**
+ * Fetch comments for a job order, sorted by timestamp desc.
+ * In production, would query the backend; here it's local mock.
+ */
+export async function fetchComments(jobOrderId: string): Promise<Comment[]> {
+  await delay(200)
+  return mockComments
+    .filter(c => c.jobOrderId === jobOrderId)
+    .sort((a, b) => {
+      const [db, mb, yb, hb, minb] = (b.timestamp.match(/\d+/g) || []).map(Number)
+      const [da, ma, ya, ha, mina] = (a.timestamp.match(/\d+/g) || []).map(Number)
+      return new Date(yb, mb - 1, db, hb || 0, minb || 0).getTime() -
+             new Date(ya, ma - 1, da, ha || 0, mina || 0).getTime()
+    })
+}
+
+/**
+ * Add a new user comment to a job order. Returns the created comment.
+ * In production, would POST to backend; here it's local in-memory.
+ */
+export async function addComment(
+  jobOrderId: string,
+  content: string,
+  author: { name: string; avatar: string },
+): Promise<Comment> {
+  await delay(150)
+  const now = new Date()
+  const dd = String(now.getDate()).padStart(2, '0')
+  const mm = String(now.getMonth() + 1).padStart(2, '0')
+  const yyyy = now.getFullYear()
+  const hh = String(now.getHours()).padStart(2, '0')
+  const min = String(now.getMinutes()).padStart(2, '0')
+  const comment: Comment = {
+    id: `cm-${Date.now()}`,
+    jobOrderId,
+    author: { kind: 'user', name: author.name, avatar: author.avatar },
+    content,
+    timestamp: `${dd}/${mm}/${yyyy} ${hh}:${min}`,
+  }
+  mockComments.push(comment)
+  return comment
 }
 
 /**

@@ -158,15 +158,101 @@
         </view>
       </view>
 
-      <!-- ===== Comments empty state ===== -->
-      <view class="card comment-empty">
-        <view class="comment-icon-circle">
-          <text class="material-icon comment-icon">forum</text>
+      <!-- ===== Comments section ===== -->
+      <view class="comments-section">
+        <!-- Section header with vertical accent bar -->
+        <view class="comments-header">
+          <view class="comments-accent"></view>
+          <text class="comments-title">Comments ({{userCommentCount}})</text>
         </view>
-        <text class="comment-title">Chưa có bình luận</text>
-        <text class="comment-subtitle">Hãy bắt đầu thảo luận với nhóm tuyển dụng</text>
-        <view class="comment-cta" bindtap="onAddComment">
-          <text>Thêm bình luận</text>
+
+        <!-- Empty state OR comment list -->
+        <block wx:if="{{comments.length === 0}}">
+          <view class="card comment-empty">
+            <view class="comment-icon-circle">
+              <text class="material-icon comment-icon">forum</text>
+            </view>
+            <text class="comment-title">Chưa có bình luận</text>
+            <text class="comment-subtitle">Hãy bắt đầu thảo luận với nhóm tuyển dụng</text>
+          </view>
+        </block>
+        <block wx:else>
+          <view class="comments-list">
+            <block wx:for="{{comments}}" wx:key="id" wx:for-item="c">
+              <!-- System activity (auto-cc) -->
+              <block wx:if="{{c.author.kind === 'system'}}">
+                <view class="comment-item system">
+                  <view class="comment-avatar-system">
+                    <text class="material-icon comment-avatar-system-icon">smart_toy</text>
+                  </view>
+                  <view class="comment-body">
+                    <view class="comment-meta-row">
+                      <text class="comment-name">{{c.author.name}}</text>
+                      <text class="comment-sublabel" wx:if="{{c.author.eventType === 'auto_cc'}}">Auto CC'd</text>
+                    </view>
+                    <view class="comment-content-row">
+                      <view class="comment-content-wrap">
+                        <text class="comment-content-text">{{c.content}}</text>
+                        <view class="comment-read" wx:if="{{c.readBy && c.readBy.length}}">
+                          <text class="material-icon comment-read-icon">check_circle</text>
+                          <text class="comment-read-text">{{c.readBy[0]}} đã đọc</text>
+                        </view>
+                      </view>
+                      <view class="comment-time">
+                        <text wx:if="{{c.relativeTime}}">{{c.relativeTime}}</text>
+                        <text>{{c.timestamp}}</text>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </block>
+              <!-- User comment -->
+              <block wx:else>
+                <view class="comment-item user">
+                  <view class="comment-avatar-user">
+                    <image class="comment-avatar-img" src="{{c.author.avatar}}" mode="aspectFill" />
+                  </view>
+                  <view class="comment-body">
+                    <view class="comment-meta-row">
+                      <text class="comment-name">{{c.author.name}}</text>
+                      <text class="comment-timestamp">{{c.timestamp}}</text>
+                    </view>
+                    <text class="comment-content-text">{{c.content}}</text>
+                  </view>
+                </view>
+              </block>
+            </block>
+          </view>
+        </block>
+
+        <!-- Comment input -->
+        <view class="comment-input-bar">
+          <view class="comment-input-avatar">
+            <image class="comment-input-avatar-img" src="{{currentUser.avatar}}" mode="aspectFill" />
+          </view>
+          <textarea
+            class="comment-input-field"
+            placeholder="Bạn có thể @ đề cập thành viên liên quan"
+            value="{{draftComment}}"
+            bindinput="onCommentInput"
+            bindconfirm="onSubmitComment"
+            auto-height="true"
+            maxlength="1000"
+          />
+          <view class="comment-input-actions">
+            <view class="comment-input-icon" bindtap="onAttach">
+              <text class="material-icon">attach_file</text>
+            </view>
+            <view class="comment-input-icon" bindtap="onImage">
+              <text class="material-icon">image</text>
+            </view>
+            <view
+              class="comment-input-send {{draftComment.trim() ? 'active' : ''}}"
+              bindtap="onSubmitComment"
+            >
+              <text class="material-icon">send</text>
+            </view>
+          </view>
         </view>
       </view>
     </view>

@@ -1,4 +1,4 @@
-import type { JobOrder, Candidate } from '@/types/recruitment'
+import type { JobOrder, Candidate, Comment } from '@/types/recruitment'
 
 // Use UI Avatars API as fallback — generates initials avatars from any name
 const avatar = (name: string) =>
@@ -600,5 +600,94 @@ export const mockCandidates: Candidate[] = [
     appliedDate: '02/07/2026',
     source: 'Referral',
     skills: ['Automation', 'Playwright', 'API Testing'],
+  },
+]
+
+// ============================================
+// Mock Comments — per job order
+// ============================================
+
+export const mockComments: Comment[] = [
+  // ===== Backend Developer (job 1) — 5 entries =====
+  {
+    id: 'cm-1001',
+    jobOrderId: '1',
+    author: { kind: 'system', eventType: 'auto_cc', name: 'System' },
+    content: 'Nguyễn Kiến Thức and Phan Trọng Khanh',
+    mentions: [
+      { name: 'Nguyễn Kiến Thức', userId: 'u-kienthuc' },
+      { name: 'Phan Trọng Khanh', userId: 'u-trongkhanh' },
+    ],
+    readBy: ['Nguyễn Kiến Thức'],
+    timestamp: '02/07/2026 16:18',
+    relativeTime: '2 ngày trước',
+  },
+  {
+    id: 'cm-1002',
+    jobOrderId: '1',
+    author: {
+      kind: 'user',
+      name: 'Kevin Hoang',
+      avatar: avatar('Kevin Hoang'),
+    },
+    content: 'Hú',
+    timestamp: '02/07/2026 16:33',
+  },
+  {
+    id: 'cm-1003',
+    jobOrderId: '1',
+    author: {
+      kind: 'user',
+      name: 'Nguyễn Kiến Thức',
+      avatar: avatar('Nguyễn Kiến Thức'),
+    },
+    content: 'Check mail em nhé',
+    timestamp: '03/07/2026 09:27',
+  },
+  {
+    id: 'cm-1004',
+    jobOrderId: '1',
+    author: {
+      kind: 'user',
+      name: 'Kevin Hoang',
+      avatar: avatar('Kevin Hoang'),
+    },
+    content: '🥂',
+    timestamp: '03/07/2026 09:38',
+  },
+  {
+    id: 'cm-1005',
+    jobOrderId: '1',
+    author: {
+      kind: 'user',
+      name: 'Kevin Hoang',
+      avatar: avatar('Kevin Hoang'),
+    },
+    content: 'Da thanks anh',
+    timestamp: '03/07/2026 09:38',
+  },
+
+  // ===== Product Designer (job 2) — 2 entries =====
+  {
+    id: 'cm-2001',
+    jobOrderId: '2',
+    author: {
+      kind: 'user',
+      name: 'Lê Khánh Vy',
+      avatar: avatar('Lê Khánh Vy'),
+    },
+    content: 'JD đã update phần portfolio requirements. Mọi người review lại nhé.',
+    timestamp: '02/07/2026 11:24',
+  },
+  {
+    id: 'cm-2002',
+    jobOrderId: '2',
+    author: {
+      kind: 'user',
+      name: 'Trần Thị Mai',
+      avatar: avatar('Trần Thị Mai'),
+    },
+    content: 'Ok bạn, em sẽ update lại JD trong hôm nay.',
+    timestamp: '02/07/2026 13:50',
   },
 ]
