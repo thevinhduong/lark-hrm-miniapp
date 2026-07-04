@@ -1,0 +1,9 @@
+{
+  "desc": "Sitemap for Lark Block",
+  "rules": [
+    {
+      "action": "allow",
+      "page": "*"
+    }
+  ]
+}

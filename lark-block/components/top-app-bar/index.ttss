@@ -1,0 +1,53 @@
+.top-app-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 112rpx;
+  background-color: #ffffff;
+  border-bottom: 1rpx solid #c4c7c7;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32rpx;
+  z-index: 100;
+  box-sizing: border-box;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 32rpx;
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  font-size: 40rpx;
+  font-weight: 650;
+  color: #1b1c1c;
+  letter-spacing: -0.4rpx;
+}
+
+.icon-btn {
+  width: 72rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16rpx;
+}
+
+.icon-btn:active {
+  background-color: #f5f3f3;
+  opacity: 0.8;
+}
+
+.material-icon {
+  font-size: 40rpx;
+  color: #1b1c1c;
+  font-family: 'Material Symbols Outlined', sans-serif;
+}

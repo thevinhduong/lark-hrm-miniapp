@@ -1,0 +1,28 @@
+.badge {
+  padding: 4rpx 16rpx;
+  border-radius: 9999rpx;
+  font-size: 20rpx;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5rpx;
+}
+
+.badge-approved {
+  background-color: #e6feda;
+  color: #014b40;
+}
+
+.badge-pending {
+  background-color: #fff3e0;
+  color: #8a3a00;
+}
+
+.badge-rejected {
+  background-color: #ffecef;
+  color: #8e0b21;
+}
+
+.badge-cc {
+  background-color: #e8f0fe;
+  color: #0d47a1;
+}

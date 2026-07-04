@@ -1,0 +1,41 @@
+<!-- Search & Filter Section Component -->
+<view class="search-filter-section">
+  <!-- Search Bar -->
+  <view class="search-bar">
+    <text class="search-icon">search</text>
+    <input
+      class="search-input"
+      placeholder="Tìm kiếm theo vị trí, người yêu cầu..."
+      value="{{searchQuery}}"
+      bindinput="onSearchInput"
+    />
+    <text class="tune-icon">tune</text>
+  </view>
+
+  <!-- Horizontal Tabs -->
+  <scroll-view class="tabs-container" scroll-x="true" enhanced="true" show-scrollbar="false">
+    <view class="tabs-row">
+      <block wx:for="{{tabs}}" wx:key="key">
+        <view
+          class="tab-btn {{item.key === tab ? 'tab-active' : 'tab-inactive'}}"
+          bindtap="onTabTap"
+          data-tab="{{item.key}}"
+        >
+          {{item.label}}
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+
+  <!-- Dropdown Filters -->
+  <view class="dropdowns-row">
+    <view class="dropdown-btn" bindtap="onDeptTap">
+      <text class="dropdown-text">{{department}}</text>
+      <text class="dropdown-arrow">expand_more</text>
+    </view>
+    <view class="dropdown-btn" bindtap="onSortTap">
+      <text class="dropdown-text">{{sortLabel}}</text>
+      <text class="dropdown-arrow">expand_more</text>
+    </view>
+  </view>
+</view>

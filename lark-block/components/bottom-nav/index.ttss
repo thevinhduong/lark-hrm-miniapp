@@ -1,0 +1,49 @@
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 128rpx;
+  background-color: #ffffff;
+  border-top: 1rpx solid #c4c7c7;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-bottom: env(safe-area-inset-bottom);
+  z-index: 100;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16rpx 24rpx;
+  border-radius: 16rpx;
+  gap: 8rpx;
+}
+
+.nav-active {
+  color: #0055c7;
+}
+
+.nav-active .nav-label {
+  font-weight: 700;
+}
+
+.nav-inactive {
+  color: #444748;
+}
+
+.nav-icon {
+  font-size: 44rpx;
+  font-family: 'Material Symbols Outlined', sans-serif;
+}
+
+.icon-filled {
+  font-variation-settings: 'FILL' 1;
+}
+
+.nav-label {
+  font-size: 20rpx;
+}

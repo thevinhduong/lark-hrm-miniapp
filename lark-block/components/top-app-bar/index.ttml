@@ -1,0 +1,14 @@
+<!-- Top App Bar Component -->
+<view class="top-app-bar">
+  <view class="left-section">
+    <view class="icon-btn" bindtap="onMenuTap">
+      <text class="material-icon">menu</text>
+    </view>
+    <text class="title">{{title}}</text>
+  </view>
+  <view class="right-section">
+    <view class="icon-btn" bindtap="onMoreTap">
+      <text class="material-icon">more_horiz</text>
+    </view>
+  </view>
+</view>

@@ -1,129 +1,152 @@
 # Hiring Management Hub - Lark Workplace Block
 
-A Lark Workplace Block mini-app for HR recruitment management, built with React, TypeScript, and the Kinetic Polaris design system (Shopify Polaris style).
+Lark Workplace Block mini-app cho quản lý tuyển dụng, xây dựng với React/TypeScript (web preview) và native Lark Block format (ttml/ttss/js/json).
 
-## Project Info
+## Thông tin Lark App
 
 | Item | Value |
 |------|-------|
 | **Lark App ID** | `cli_a92ec64c69b8ded1` |
+| **Lark App Secret** | `nc38AkRSSAwrxLXM6KEEDfiIDUNhC4eu` |
 | **Block Type ID** | `blk_69a47a51c8800ede6d63de15` |
 | **Block Type** | Non-standard Workplace Block |
 
 ## Tech Stack
 
-- **Framework**: React 18 + TypeScript
-- **Build**: Vite 6
-- **Styling**: Tailwind CSS 3 + PostCSS
-- **Design System**: Kinetic Polaris (Shopify Polaris style)
-- **Icons**: Material Symbols Outlined
+| Layer | Tech |
+|-------|------|
+| Web Preview | React 18 + TypeScript + Vite 6 + Tailwind CSS |
+| Lark Block Runtime | Native (ttml/ttss/js/json) - mini-program format |
+| Design System | Kinetic Polaris (Shopify Polaris style) |
+| Icons | Material Symbols Outlined |
 
 ## Project Structure
 
 ```
 hrm-lark-miniapp/
-├── block/                    # Lark Block runtime files
-│   ├── app.json              # Block app configuration
-│   ├── index.json            # Block component config
-│   ├── index.tsx             # Block entry component
-│   ── index.ttss            # Block styles
-├── src/
-│   ├── components/           # React UI components
-│   │   ├── TopAppBar.tsx     # Top navigation bar
-│   │   ├── SearchFilterSection.tsx  # Search + tabs + filters
-│   │   ├── JobOrderCard.tsx  # Recruitment job order card
-│   │   ├── StatusBadge.tsx   # Status indicator badge
-│   │   ├── BottomNav.tsx     # Bottom navigation bar
-│   │   ├── EmptyState.tsx    # Empty list state
-│   │   └── LoadingSpinner.tsx # Loading indicator
+├── lark-block/                 ← Lark Block native project (DEPLOY)
+│   ├── project.config.json     ← IDE project config
+│   ├── app.json                ← Global app config
+│   ├── app.js                  ← App entry
+│   ├── app.ttss                ← Global styles
+│   ├── sitemap.json
 │   ├── pages/
-│   │   └── RecruitmentListPage.tsx  # Main page
-│   ├── services/
-│   │   ├── api.ts            # API service layer
-│   │   └── mockData.ts       # Mock data
-│   ├── types/
-│   │   ├── recruitment.ts    # Domain types
-│   │   └── lark.ts           # Lark Block SDK types
-│   ├── App.tsx               # App root
-│   ├── index.tsx             # Web entry point
-│   ── index.css             # Global styles + design tokens
-├── assets/                   # Design assets from Stitch
-├── tailwind.config.ts        # Tailwind config (Kinetic Polaris)
-├── vite.config.ts            # Vite build config
-├── tsconfig.json             # TypeScript config
-├── package.json
-└── README.md
+│   │   └── index/              ← Main page (ttml/ttss/js/json)
+│   └── components/             ← 6 native components
+│       ├── top-app-bar/
+│       ├── search-filter/
+│       ├── job-order-card/
+│       ├── status-badge/
+│       ├── bottom-nav/
+│       └── empty-state/
+├── src/                        ← React web preview source
+│   ├── components/             ← 7 React components
+│   ├── pages/                  ← React pages
+│   ├── services/               ← API + mock data
+│   ── types/                  ← TypeScript types
+├── block/                      ← Legacy Block entry files
+── assets/                     ← Design assets (Stitch)
+├── tailwind.config.ts
+├── vite.config.ts
+└── package.json
 ```
 
-## Getting Started
+## Quick Start
 
-### Development (Web)
+### Web Preview (Development)
 
 ```bash
 npm install
-npm run dev
+npm run dev          # http://localhost:3000
+npm run build        # Production build → dist/
+npm run preview      # Preview production build
 ```
 
-Opens at `http://localhost:3000`
+### Lark Block Development
 
-### Build
-
-```bash
-npm run build
-```
-
-### Production Preview
-
-```bash
-npm run preview
-```
-
-## Lark Block Development
-
-### Prerequisites
-
-1. Install [Lark Developer Tools](https://open.larksuite.com/document/uYjL24iN/ucDOzYjL3gzM24yN4MjN) (v2.1+)
-2. Login with a user who has developer permissions for the app
-
-### Creating the Block Project
-
-1. Open Lark Developer Tools
-2. Navigate to **Extensions** → **Blocks**
-3. Click **+** to create a new block project
-4. Fill in:
+1. Cài đặt [Lark Developer Tools](https://open.larksuite.com/document/uYjL24iN/ucDOzYjL3gzM24yN4MjN) (v2.1+)
+2. Mở Lark Developer Tools → Login (Lark environment)
+3. Chọn **Extensions** → **Blocks** → **+** (tạo project mới)
+4. Nhập thông tin:
    - **AppID**: `cli_a92ec64c69b8ded1`
    - **BlockTypeID**: `blk_69a47a51c8800ede6d63de15`
-5. Select the React/TypeScript template
+5. Import folder `lark-block/` làm project source
 
-### Publishing
+## Deploy lên Lark Block
 
-1. In Lark Developer Tools, click **Upload** in the upper right
-2. Go to Lark Open Platform → Developer Console
-3. Select the uploaded block version
-4. Fill in block configuration
-5. Submit for admin review
+### Bước 1: Upload qua Lark Developer Tools
+
+1. Mở project trong Lark Developer Tools
+2. Click **Upload** (góc trên phải)
+3. Xác nhận thông tin block → Upload
+4. Sau khi upload thành công, tools sẽ redirect tới Developer Console
+
+### Bước 2: Cấu hình trên Developer Console
+
+1. Truy cập [Lark Developer Console](https://open.larksuite.com/app)
+2. Chọn app `cli_a92ec64c69b8ded1`
+3. Vào **Features** → **Block** → chọn block
+4. Cấu hình:
+   - **Block fit type**: Non-standard block
+   - **Block settings**: Enable nếu cần (tùy chọn)
+   - Điền thông tin block (tên, mô tả, icon)
+
+### Bước 3: Publish
+
+1. Vào **Version Management & Release**
+2. Chọn version vừa upload
+3. Điền version info → Submit
+4. Admin tenant review → Approve → Block active
+
+### Bước 4: Sử dụng trên Workplace
+
+**Non-standard block** (container size tùy chỉnh):
+- Admin: Admin Console → Workplace → Custom Workplaces → Custom Workplace editor → Add block
+- Block hiển thị ở bất kỳ khu vực nào của Custom Workplace (trừ My Favorites)
 
 ## Design System: Kinetic Polaris
 
-Based on Shopify Polaris with customizations for HR management:
+Dựa trên Shopify Polaris, tùy biến cho HR management:
 
-- **Primary**: Ink Charcoal `#303030`
-- **Secondary**: Interactive Indigo `#0055c7`
-- **Tertiary**: Aura Amethyst `#9f269f`
-- **Typography**: Inter (450 body, 650 headings)
-- **Spacing**: 4px base unit grid
-- **Cards**: White `#ffffff` on light gray `#f1f1f1`
-- **Borders**: Hairline `0.66px` to `1px` solid `#e3e3e3`
+| Token | Value | Usage |
+|-------|-------|-------|
+| Primary | `#303030` | Buttons, headings |
+| Secondary | `#0055c7` | Links, active states |
+| Tertiary | `#9f269f` | AI features |
+| Background | `#fbf9f8` | Page bg |
+| Surface | `#ffffff` | Cards |
+| Border | `#e3e3e3` | Card borders |
+| Success | `#e6feda` / `#014b40` | Approved |
+| Warning | `#fff3e0` / `#8a3a00` | Pending |
+| Critical | `#ffecef` / `#8e0b21` | Rejected |
+
+**Typography**: Inter font (body: 450, heading: 650)
+**Spacing**: 4px base unit grid (rpx in native)
+**Radius**: 8px buttons/inputs, 12px cards, full pill badges
 
 ## Screens
 
-1. **Danh sách yêu cầu tuyển dụng** (Recruitment Request List)
-   - Top app bar with title and menu
-   - Search bar with filter icon
-   - Tab navigation: Đang xử lý | Đã duyệt | CC cho tôi | Đã từ chối
-   - Department and sort dropdowns
-   - Job order cards with status badges
-   - Bottom navigation: Yêu cầu | Tuyển dụng | Báo cáo
+### Danh sách yêu cầu tuyển dụng (Recruitment Request List)
+
+- **TopAppBar**: Title "Tuyển dụng" + menu/overflow
+- **SearchBar**: Tìm kiếm vị trí, người yêu cầu + tune icon
+- **Tabs**: Đang xử lý | Đã duyệt | CC cho tôi (3) | Đã từ chối
+- **Filters**: Dropdown Phòng ban + Sort order
+- **JobOrderCard**: Title, status badge, department, level, count, requester (avatar + name), date
+- **BottomNav**: Yêu cầu | Tuyển dụng | Báo cáo
+
+## API Integration
+
+Trong production, thay thế `mockData.ts` bằng Lark Block SDK calls:
+
+```js
+// Lark Block SDK request
+const data = await window.lark.jssdk.request({
+  url: '/api/recruitment/job-orders',
+  method: 'GET',
+  data: { status: 'approved', page: 1 },
+})
+```
 
 ## License
 

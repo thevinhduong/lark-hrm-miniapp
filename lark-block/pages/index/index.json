@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "top-app-bar": "/components/top-app-bar/index",
+    "search-filter": "/components/search-filter/index",
+    "job-order-card": "/components/job-order-card/index",
+    "bottom-nav": "/components/bottom-nav/index",
+    "empty-state": "/components/empty-state/index"
+  }
+}

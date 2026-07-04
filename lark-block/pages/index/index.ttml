@@ -1,0 +1,38 @@
+<!-- Recruitment List Page - Main Template -->
+<view class="page-container">
+  <!-- Top App Bar -->
+  <top-app-bar title="Tuyển dụng" />
+
+  <!-- Main Content -->
+  <scroll-view class="main-content" scroll-y="true">
+    <!-- Search & Filters -->
+    <search-filter
+      tab="{{currentTab}}"
+      searchQuery="{{searchQuery}}"
+      department="{{selectedDepartment}}"
+      sortLabel="{{sortLabel}}"
+      bind:tabChange="onTabChange"
+      bind:searchChange="onSearchChange"
+      bind:departmentChange="onDepartmentChange"
+      bind:sortChange="onSortChange"
+    />
+
+    <!-- Job Orders List -->
+    <view class="job-list">
+      <block wx:for="{{jobOrders}}" wx:key="id">
+        <job-order-card jobOrder="{{item}}" />
+      </block>
+
+      <!-- Empty State -->
+      <empty-state wx:if="{{jobOrders.length === 0 && !loading}}" />
+
+      <!-- Loading -->
+      <view class="loading-container" wx:if="{{loading}}">
+        <view class="spinner"></view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- Bottom Navigation -->
+  <bottom-nav activeTab="{{bottomNavTab}}" bind:tabChange="onBottomNavChange" />
+</view>

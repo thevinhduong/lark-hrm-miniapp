@@ -1,0 +1,3 @@
+<view class="empty-state">
+  <text class="empty-text">Đã hết dữ liệu</text>
+</view>
