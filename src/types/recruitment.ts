@@ -12,6 +12,7 @@ export interface WorkflowStep {
   id: string
   title: string
   person: string
+  personAvatar?: string
   status: 'done' | 'active' | 'pending'
   statusLabel: string
   statusColor: 'success' | 'active' | 'outline'

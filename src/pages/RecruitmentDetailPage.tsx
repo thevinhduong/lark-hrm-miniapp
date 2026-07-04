@@ -331,6 +331,8 @@ function WorkflowStepRow({ step, isLast }: { step: WorkflowStep; isLast: boolean
     outline: 'border-2 border-outline-variant bg-surface-container text-outline',
   }[step.statusColor]
 
+  const isSystem = step.person === 'Hệ thống' || !step.personAvatar
+
   return (
     <div className="flex gap-4 relative workflow-step">
       <div
@@ -346,7 +348,7 @@ function WorkflowStepRow({ step, isLast }: { step: WorkflowStep; isLast: boolean
       </div>
       <div className="flex-1 pb-6 min-w-0">
         <div className="flex justify-between items-start gap-2">
-          <div className="min-w-0">
+          <div className="min-w-0 flex-1">
             <p
               className={`text-body-md font-bold ${
                 step.status === 'pending' ? 'text-outline' : 'text-on-surface'
@@ -354,10 +356,26 @@ function WorkflowStepRow({ step, isLast }: { step: WorkflowStep; isLast: boolean
             >
               {step.title}
             </p>
-            <p className="text-label-sm text-on-surface-variant">{step.person}</p>
+            {/* Person row with avatar */}
+            <div className="flex items-center gap-2 mt-1">
+              {isSystem ? (
+                <div className="w-5 h-5 rounded-full bg-surface-container-high border border-outline-variant/20 flex items-center justify-center flex-shrink-0">
+                  <span className="material-symbols-outlined text-[14px] text-outline">settings</span>
+                </div>
+              ) : (
+                <div className="w-5 h-5 rounded-full overflow-hidden border border-outline-variant/20 flex-shrink-0 bg-surface-container-high">
+                  <img
+                    src={step.personAvatar}
+                    alt={step.person}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
+              <p className="text-label-sm text-on-surface-variant truncate">{step.person}</p>
+            </div>
             {step.statusLabel && (
               <p
-                className={`text-label-sm mt-1 font-bold uppercase ${
+                className={`text-label-sm mt-1.5 font-bold uppercase ${
                   step.statusColor === 'success'
                     ? 'text-[#1e5128]'
                     : step.statusColor === 'active'

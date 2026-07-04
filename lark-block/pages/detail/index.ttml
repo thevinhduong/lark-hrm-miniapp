@@ -110,7 +110,19 @@
                 <view class="step-row">
                   <view class="step-meta">
                     <text class="step-title {{step.status === 'pending' ? 'pending' : ''}}">{{step.title}}</text>
-                    <text class="step-person">{{step.person}}</text>
+                    <view class="step-person-row">
+                      <block wx:if="{{step.person === 'Hệ thống' || !step.personAvatar}}">
+                        <view class="step-avatar step-avatar-system">
+                          <text class="material-icon step-avatar-icon">settings</text>
+                        </view>
+                      </block>
+                      <block wx:else>
+                        <view class="step-avatar">
+                          <image class="step-avatar-img" src="{{step.personAvatar}}" mode="aspectFill" />
+                        </view>
+                      </block>
+                      <text class="step-person">{{step.person}}</text>
+                    </view>
                     <text class="step-status {{step.statusColor}}" wx:if="{{step.statusLabel}}">{{step.statusLabel}}</text>
                   </view>
                   <view class="step-time">
