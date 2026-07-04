@@ -1,0 +1,17 @@
+name = "lark-hrm-miniapp"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Static Assets config — serve the built Vite SPA from dist/
+# Single-page-application mode handles React Router fallback automatically
+# (all unknown routes → index.html, no custom Worker script needed)
+[assets]
+directory = "./dist"
+not_found_handling = "single-page-application"
+
+# Production observability
+[observability]
+enabled = true
+
+# Subdomain on workers.dev — defaults to the username's subdomain
+# workers.dev URL: https://lark-hrm-miniapp.<account-subdomain>.workers.dev
