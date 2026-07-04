@@ -104,10 +104,6 @@ const NAV_ITEMS = [
 // ─── Block Entry ────────────────────────────────────────────────────────────
 Block({
   data: {
-    // Layout
-    containerHeight: 0,
-    scrollHeight: 0,
-
     // Filters
     currentTab: 'approved',
     searchQuery: '',
@@ -128,31 +124,14 @@ Block({
 
   onLoad(options) {
     promisify()
-    console.log('[HRM Block] onLoad', options.host, options.blockInfo)
+    console.log('[HRM Block] onLoad', options)
     tt.hideBlockLoading()
-
-    // Listen to container resize
-    tt.onContainerResize((size) => {
-      this.setData({
-        containerHeight: size.height,
-        scrollHeight: size.height - 112 - 120, // topbar + bottomnav
-      })
-    })
-
     this.filterJobs()
   },
 
-  async onReady() {
-    const rect = await tt.promises.getContainerRect()
-    this.setData({
-      containerHeight: rect.height,
-      scrollHeight: rect.height - 112 - 120,
-    })
+  onReady() {
+    console.log('[HRM Block] onReady')
   },
-
-  onShow() {},
-  onHide() {},
-  onDestroy() {},
 
   onActivate(state) {
     promisify()

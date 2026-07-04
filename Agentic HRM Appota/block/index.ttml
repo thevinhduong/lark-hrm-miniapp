@@ -1,5 +1,5 @@
 <!-- Hiring Management Hub - Recruitment List -->
-<view class="page" style="min-height: {{containerHeight}}px">
+<view class="page">
 
   <!-- Top App Bar -->
   <view class="top-bar">
@@ -17,7 +17,7 @@
   </view>
 
   <!-- Main Scrollable Content -->
-  <scroll-view class="main-scroll" scroll-y="true" style="height: {{scrollHeight}}px">
+  <scroll-view class="main-scroll" scroll-y="true">
 
     <!-- Search Bar -->
     <view class="search-section">
@@ -33,7 +33,7 @@
       </view>
 
       <!-- Horizontal Tabs -->
-      <scroll-view class="tabs-scroll" scroll-x="true" enhanced="{{true}}" show-scrollbar="{{false}}">
+      <scroll-view class="tabs-scroll" scroll-x="true">
         <view class="tabs-row">
           <view
             tt:for="{{tabs}}"
