@@ -1,0 +1,139 @@
+<!-- Hiring Management Hub - Recruitment List -->
+<view class="page" style="min-height: {{containerHeight}}px">
+
+  <!-- Top App Bar -->
+  <view class="top-bar">
+    <view class="top-bar-left">
+      <view class="icon-btn" bindtap="onMenuTap">
+        <text class="icon">menu</text>
+      </view>
+      <text class="top-bar-title">Tuyển dụng</text>
+    </view>
+    <view class="top-bar-right">
+      <view class="icon-btn" bindtap="onMoreTap">
+        <text class="icon">more_horiz</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Main Scrollable Content -->
+  <scroll-view class="main-scroll" scroll-y="true" style="height: {{scrollHeight}}px">
+
+    <!-- Search Bar -->
+    <view class="search-section">
+      <view class="search-bar">
+        <text class="search-icon">search</text>
+        <input
+          class="search-input"
+          placeholder="Tìm kiếm theo vị trí, người yêu cầu..."
+          value="{{searchQuery}}"
+          bindinput="onSearchInput"
+        />
+        <text class="search-tune">tune</text>
+      </view>
+
+      <!-- Horizontal Tabs -->
+      <scroll-view class="tabs-scroll" scroll-x="true" enhanced="{{true}}" show-scrollbar="{{false}}">
+        <view class="tabs-row">
+          <view
+            tt:for="{{tabs}}"
+            tt:key="key"
+            class="tab-btn {{item.key === currentTab ? 'tab-active' : 'tab-inactive'}}"
+            bindtap="onTabTap"
+            data-tab="{{item.key}}"
+          >
+            <text>{{item.label}}</text>
+          </view>
+        </view>
+      </scroll-view>
+
+      <!-- Filter Dropdowns -->
+      <view class="filters-row">
+        <view class="filter-btn" bindtap="onDeptFilterTap">
+          <text class="filter-text">{{selectedDept}}</text>
+          <text class="filter-arrow">expand_more</text>
+        </view>
+        <view class="filter-btn" bindtap="onSortFilterTap">
+          <text class="filter-text">{{sortLabel}}</text>
+          <text class="filter-arrow">expand_more</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Job Orders List -->
+    <view class="job-list">
+      <view
+        tt:for="{{filteredJobs}}"
+        tt:key="id"
+        class="job-card"
+        bindtap="onCardTap"
+        data-id="{{item.id}}"
+      >
+        <!-- Card Header -->
+        <view class="card-header">
+          <text class="card-title">{{item.title}}</text>
+          <view class="badge badge-{{item.status}}">
+            <text class="badge-text">{{item.statusLabel}}</text>
+          </view>
+        </view>
+
+        <!-- Card Metadata -->
+        <view class="card-meta">
+          <view class="meta-col">
+            <text class="meta-label">Phòng ban:</text>
+            <text class="meta-value">{{item.department}}</text>
+          </view>
+          <view class="meta-col">
+            <text class="meta-label">Cấp bậc:</text>
+            <text class="meta-value">{{item.level}}</text>
+          </view>
+          <view class="meta-col">
+            <text class="meta-label">Số lượng:</text>
+            <text class="meta-value">{{item.count}}</text>
+          </view>
+        </view>
+
+        <!-- Card Footer -->
+        <view class="card-footer">
+          <view class="footer-left">
+            <image
+              class="avatar"
+              src="{{item.avatar}}"
+              mode="aspectFill"
+            />
+            <text class="requester-name">{{item.requesterName}}</text>
+          </view>
+          <text class="request-date">{{item.requestDate}}</text>
+        </view>
+      </view>
+
+      <!-- Empty State -->
+      <view class="empty-state" tt:if="{{filteredJobs.length === 0 && !loading}}">
+        <text class="empty-text">Đã hết dữ liệu</text>
+      </view>
+
+      <!-- Loading State -->
+      <view class="loading-state" tt:if="{{loading}}">
+        <view class="spinner"></view>
+      </view>
+    </view>
+
+    <!-- Bottom padding for nav -->
+    <view style="height: 120px"></view>
+  </scroll-view>
+
+  <!-- Bottom Navigation -->
+  <view class="bottom-nav">
+    <view
+      tt:for="{{navItems}}"
+      tt:key="label"
+      class="nav-item {{item.label === activeNavTab ? 'nav-active' : 'nav-inactive'}}"
+      bindtap="onNavTap"
+      data-tab="{{item.label}}"
+    >
+      <text class="nav-icon {{item.label === activeNavTab ? 'nav-icon-filled' : ''}}">{{item.icon}}</text>
+      <text class="nav-label">{{item.label}}</text>
+    </view>
+  </view>
+
+</view>

@@ -1,0 +1,11 @@
+{
+  "setting": {
+    "es6": true,
+    "minified": true
+  },
+  "appid": "cli_a92ec64c69b8ded1",
+  "projectname": "Agentic HRM Appota",
+  "blocks": [
+    "block/index"
+  ]
+}

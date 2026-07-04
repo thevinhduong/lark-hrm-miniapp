@@ -1,0 +1,31 @@
+<view class="creator-page">
+  <view class="creator-header">
+    <text class="creator-title">Cấu hình block</text>
+  </view>
+
+  <view class="creator-section">
+    <text class="section-label">Block Type ID</text>
+    <text class="section-value">blk_69a47a51c8800ede6d63de15</text>
+  </view>
+
+  <view class="creator-section">
+    <text class="section-label">App ID</text>
+    <text class="section-value">cli_a92ec64c69b8ded1</text>
+  </view>
+
+  <view class="creator-section">
+    <text class="section-label">Loại block</text>
+    <text class="section-value">Non-standard (tùy chỉnh kích thước)</text>
+  </view>
+
+  <view class="creator-section">
+    <text class="section-label">Mô tả</text>
+    <text class="section-value">Hiring Management Hub - Quản lý yêu cầu tuyển dụng</text>
+  </view>
+
+  <view class="creator-footer">
+    <view class="save-btn" bindtap="onSave">
+      <text class="save-btn-text">Lưu cấu hình</text>
+    </view>
+  </view>
+</view> 
