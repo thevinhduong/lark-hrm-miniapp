@@ -1,0 +1,60 @@
+.back-app-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 112rpx;
+  background-color: #ffffff;
+  border-bottom: 1rpx solid #e3e3e3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32rpx;
+  z-index: 100;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #1b1c1c;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 16rpx;
+  transition: background-color 0.15s ease;
+}
+
+.icon-btn:active {
+  background-color: #f5f3f3;
+  transform: scale(0.95);
+}
+
+.material-icon {
+  font-family: 'Material Symbols Outlined';
+  font-size: 36rpx;
+  font-weight: 400;
+  color: #1b1c1c;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}

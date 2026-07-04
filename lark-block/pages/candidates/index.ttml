@@ -1,0 +1,93 @@
+<view class="page-container">
+  <back-app-bar
+    title="{{pageTitle}}"
+    rightIcon="person_add"
+    bind:back="onBack"
+    bind:righttap="onAddCandidate"
+  />
+
+  <scroll-view class="main-content" scroll-y="true" enhanced="true" show-scrollbar="{{false}}">
+    <!-- ===== Stats summary ===== -->
+    <view class="stats-row">
+      <candidate-stat-card count="{{stats.total}}" label="Tổng" accent="primary" />
+      <candidate-stat-card count="{{stats.interview}}" label="Phỏng vấn" accent="warning" />
+      <candidate-stat-card count="{{stats.offer}}" label="Đề xuất" accent="tertiary" />
+      <candidate-stat-card count="{{stats.hired}}" label="Đã tuyển" accent="success" />
+    </view>
+
+    <!-- ===== Search ===== -->
+    <view class="search-wrap">
+      <view class="search-box">
+        <text class="search-icon material-icon">search</text>
+        <input
+          class="search-input"
+          type="text"
+          placeholder="Tìm kiếm ứng viên..."
+          value="{{searchQuery}}"
+          bindinput="onSearchInput"
+          confirm-type="search"
+        />
+        <text class="filter-icon material-icon" bindtap="onFilterTap">tune</text>
+      </view>
+    </view>
+
+    <!-- ===== Stage tabs ===== -->
+    <view class="tabs-wrap">
+      <candidate-stage-tabs
+        tabs="{{stageTabs}}"
+        activeKey="{{activeStage}}"
+        bind:change="onTabChange"
+      />
+    </view>
+
+    <!-- ===== Section header + sort ===== -->
+    <view class="list-header">
+      <text class="list-title">Danh sách hồ sơ ({{filteredCandidates.length}})</text>
+      <view class="sort-btn" bindtap="onSortTap">
+        <text class="sort-icon material-icon">sort</text>
+        <text class="sort-label">{{sortLabel}}</text>
+        <text class="sort-arrow material-icon">expand_more</text>
+      </view>
+    </view>
+
+    <!-- Sort dropdown -->
+    <view class="sort-dropdown" wx:if="{{sortOpen}}">
+      <block wx:for="{{sortOptions}}" wx:key="value">
+        <view
+          class="sort-option {{item.value === sortBy ? 'active' : ''}}"
+          data-value="{{item.value}}"
+          bindtap="onSortSelect"
+        >
+          <text>{{item.label}}</text>
+          <text class="sort-check material-icon" wx:if="{{item.value === sortBy}}">check</text>
+        </view>
+      </block>
+    </view>
+
+    <!-- ===== Candidate list ===== -->
+    <view class="candidate-list">
+      <block wx:for="{{filteredCandidates}}" wx:key="id">
+        <candidate-card
+          candidate="{{item}}"
+          showActions="{{true}}"
+          bind:tap="onCandidateTap"
+          bind:detailtap="onCandidateDetail"
+          bind:primaryaction="onCandidateAction"
+        />
+      </block>
+
+      <empty-state wx:if="{{filteredCandidates.length === 0 && !loading}}" />
+
+      <view class="list-footer" wx:if="{{filteredCandidates.length > 0}}">
+        <text>Đã tải hết danh sách hồ sơ</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- Floating Add Button -->
+  <view class="fab" bindtap="onAddCandidate">
+    <text class="material-icon">person_add</text>
+  </view>
+
+  <bottom-nav activeTab="{{bottomNavTab}}" bind:tabChange="onBottomNavChange" />
+</view>

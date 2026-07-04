@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "candidate-stage-badge": "/components/candidate-stage-badge/index"
+  }
+}

@@ -1,0 +1,40 @@
+.stage-badge {
+  display: inline-block;
+  padding: 4rpx 16rpx;
+  border-radius: 9999px;
+  font-size: 22rpx;
+  font-weight: 600;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+/* Stage color variants — matching Kinetic Polaris semantic colors */
+.stage-applied {
+  background-color: #e8f0fe;
+  color: #0d47a1;
+}
+
+.stage-screening {
+  background-color: rgba(0, 85, 199, 0.12);
+  color: #0055c7;
+}
+
+.stage-interview {
+  background-color: #fff3e0;
+  color: #8a3a00;
+}
+
+.stage-offer {
+  background-color: rgba(159, 38, 159, 0.14);
+  color: #9f269f;
+}
+
+.stage-hired {
+  background-color: #e6feda;
+  color: #014b40;
+}
+
+.stage-rejected {
+  background-color: #ffecef;
+  color: #8e0b21;
+}

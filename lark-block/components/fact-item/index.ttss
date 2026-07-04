@@ -1,0 +1,38 @@
+.fact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12rpx;
+  min-width: 0;
+}
+
+.fact-icon {
+  font-family: 'Material Symbols Outlined';
+  font-size: 32rpx;
+  color: #747878;
+  flex-shrink: 0;
+  margin-top: 4rpx;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.fact-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.fact-label {
+  font-size: 22rpx;
+  color: #444748;
+  line-height: 1.4;
+}
+
+.fact-value {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #1b1c1c;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 280rpx;
+}

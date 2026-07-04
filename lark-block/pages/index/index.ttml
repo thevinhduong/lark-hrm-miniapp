@@ -20,7 +20,10 @@
     <!-- Job Orders List -->
     <view class="job-list">
       <block wx:for="{{jobOrders}}" wx:key="id">
-        <job-order-card jobOrder="{{item}}" />
+        <job-order-card
+          jobOrder="{{item}}"
+          bind:tap="onJobOrderTap"
+        />
       </block>
 
       <!-- Empty State -->

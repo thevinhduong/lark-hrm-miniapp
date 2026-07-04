@@ -1,0 +1,13 @@
+{
+  "usingComponents": {
+    "back-app-bar": "/components/back-app-bar/index",
+    "status-badge": "/components/status-badge/index",
+    "fact-item": "/components/fact-item/index",
+    "section-header": "/components/section-header/index",
+    "skill-tag": "/components/skill-tag/index",
+    "workflow-step": "/components/workflow-step/index",
+    "candidate-card": "/components/candidate-card/index",
+    "candidate-stage-badge": "/components/candidate-stage-badge/index",
+    "bottom-nav": "/components/bottom-nav/index"
+  }
+}

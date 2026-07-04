@@ -1,0 +1,14 @@
+<scroll-view class="tabs-scroll" scroll-x="true" enhanced="true" show-scrollbar="{{false}}">
+  <view class="tabs-row">
+    <block wx:for="{{tabs}}" wx:key="key">
+      <view
+        class="tab-pill {{item.key === activeKey ? 'active' : ''}}"
+        bindtap="onTabTap"
+        data-key="{{item.key}}"
+      >
+        <text class="tab-label">{{item.label}}</text>
+        <text class="tab-count {{item.key === activeKey ? 'active' : ''}}">{{item.count}}</text>
+      </view>
+    </block>
+  </view>
+</scroll-view>

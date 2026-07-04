@@ -5,4 +5,9 @@ Component({
       value: {},
     },
   },
+  methods: {
+    onTap() {
+      this.triggerEvent('tap', { jobOrder: this.data.jobOrder })
+    },
+  },
 })

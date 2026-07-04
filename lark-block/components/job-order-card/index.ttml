@@ -1,5 +1,5 @@
 <!-- Job Order Card Component -->
-<view class="card job-card">
+<view class="card job-card" bindtap="onTap" hover-class="job-card-hover" hover-stay-time="100">
   <!-- Header: Title + Status -->
   <view class="card-header">
     <text class="card-title">{{jobOrder.title}}</text>
@@ -22,7 +22,7 @@
     </view>
   </view>
 
-  <!-- Footer: Requester + Date -->
+  <!-- Footer: Requester + Date + Chevron -->
   <view class="card-footer">
     <view class="requester-info">
       <image
@@ -32,6 +32,9 @@
       />
       <text class="requester-name">{{jobOrder.requesterName}}</text>
     </view>
-    <text class="request-date">{{jobOrder.requestDate}}</text>
+    <view class="footer-right">
+      <text class="request-date">{{jobOrder.requestDate}}</text>
+      <text class="chevron material-icon">chevron_right</text>
+    </view>
   </view>
 </view>

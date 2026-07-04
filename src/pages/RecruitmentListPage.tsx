@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import type { TabFilter, SortOption, JobOrder } from '@/types/recruitment'
 import { fetchJobOrders } from '@/services/api'
 import TopAppBar from '@/components/TopAppBar'
@@ -9,6 +10,7 @@ import LoadingSpinner from '@/components/LoadingSpinner'
 import EmptyState from '@/components/EmptyState'
 
 export default function RecruitmentListPage() {
+  const navigate = useNavigate()
   const [tab, setTab] = useState<TabFilter>('approved')
   const [searchQuery, setSearchQuery] = useState('')
   const [department, setDepartment] = useState('Tất cả phòng ban')
@@ -58,7 +60,11 @@ export default function RecruitmentListPage() {
             <EmptyState />
           ) : (
             jobOrders.map(order => (
-              <JobOrderCard key={order.id} jobOrder={order} />
+              <JobOrderCard
+                key={order.id}
+                jobOrder={order}
+                onClick={id => navigate(`/recruitment/${id}`)}
+              />
             ))
           )}
         </section>

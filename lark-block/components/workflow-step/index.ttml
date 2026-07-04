@@ -1,0 +1,13 @@
+<view class="workflow-step {{statusClass}}">
+  <view class="step-indicator">
+    <view class="step-dot {{dotClass}}">
+      <text class="step-icon material-icon" wx:if="{{status === 'done'}}">check</text>
+      <text wx:else>{{stepNumber}}</text>
+    </view>
+    <view class="step-line" wx:if="{{!isLast}}"></view>
+  </view>
+  <view class="step-content">
+    <text class="step-title">{{title}}</text>
+    <text class="step-meta" wx:if="{{meta}}">{{meta}}</text>
+  </view>
+</view>

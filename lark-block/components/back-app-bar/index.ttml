@@ -1,0 +1,13 @@
+<view class="back-app-bar">
+  <view class="left-section">
+    <view class="icon-btn" bindtap="onBack">
+      <text class="material-icon">arrow_back</text>
+    </view>
+    <text class="title">{{title}}</text>
+  </view>
+  <view class="right-section" wx:if="{{rightIcon}}">
+    <view class="icon-btn" bindtap="onRightTap">
+      <text class="material-icon">{{rightIcon}}</text>
+    </view>
+  </view>
+</view>

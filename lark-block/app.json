@@ -1,6 +1,8 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/detail/index",
+    "pages/candidates/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

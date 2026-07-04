@@ -6,6 +6,8 @@ export type RecruitmentStatus = 'approved' | 'pending' | 'rejected' | 'cc'
 
 export type JobLevel = 'Junior' | 'Mid-level' | 'Senior' | 'Lead' | 'Manager' | 'Director'
 
+export type WorkType = 'Onsite' | 'Remote' | 'Hybrid'
+
 export interface JobOrder {
   id: string
   title: string
@@ -16,7 +18,22 @@ export interface JobOrder {
   requesterName: string
   requesterAvatar: string
   requestDate: string
+  // Detail fields
   description?: string
+  requirements?: string[]
+  benefits?: string[]
+  location?: string
+  workType?: WorkType
+  salaryMin?: number
+  salaryMax?: number
+  salaryCurrency?: string
+  deadline?: string
+  hiringManager?: {
+    name: string
+    title: string
+    avatar: string
+  }
+  skills?: string[]
 }
 
 export type TabFilter = 'pending' | 'approved' | 'cc' | 'rejected'
@@ -28,4 +45,43 @@ export interface FilterState {
   searchQuery: string
   department: string
   sortBy: SortOption
+}
+
+// ============================================
+// Candidate Types
+// ============================================
+
+export type CandidateStage =
+  | 'applied'
+  | 'screening'
+  | 'interview'
+  | 'offer'
+  | 'hired'
+  | 'rejected'
+
+export interface Candidate {
+  id: string
+  jobOrderId: string
+  name: string
+  avatar: string
+  email: string
+  phone: string
+  currentTitle: string
+  currentCompany: string
+  yearsOfExperience: number
+  stage: CandidateStage
+  rating: number // 0-5
+  appliedDate: string
+  source: string // e.g., "LinkedIn", "Referral", "Lark Form"
+  resumeUrl?: string
+  notes?: string
+  skills?: string[]
+}
+
+export type CandidateStageFilter = 'all' | CandidateStage
+
+export interface CandidateStageConfig {
+  key: CandidateStage | 'all'
+  label: string
+  color: 'success' | 'warning' | 'info' | 'secondary' | 'primary' | 'critical'
 }

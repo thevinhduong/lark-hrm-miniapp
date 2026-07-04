@@ -1,6 +1,12 @@
 .job-card {
   padding: 24rpx;
   margin-bottom: 0;
+  transition: transform 0.15s ease;
+}
+
+.job-card-hover {
+  transform: scale(0.99);
+  background-color: #fbf9f8;
 }
 
 .card-header {
@@ -75,4 +81,17 @@
 .request-date {
   font-size: 22rpx;
   color: #747878;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.chevron {
+  font-family: 'Material Symbols Outlined';
+  font-size: 32rpx;
+  color: #747878;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }

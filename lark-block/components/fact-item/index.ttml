@@ -1,0 +1,7 @@
+<view class="fact-item">
+  <text class="fact-icon material-icon">{{icon}}</text>
+  <view class="fact-content">
+    <text class="fact-label">{{label}}</text>
+    <text class="fact-value">{{value}}</text>
+  </view>
+</view>

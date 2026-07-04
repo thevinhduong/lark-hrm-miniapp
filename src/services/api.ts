@@ -1,5 +1,11 @@
-import type { JobOrder, TabFilter, SortOption } from '@/types/recruitment'
-import { mockJobOrders } from './mockData'
+import type {
+  JobOrder,
+  TabFilter,
+  SortOption,
+  Candidate,
+  CandidateStage,
+} from '@/types/recruitment'
+import { mockJobOrders, mockCandidates } from './mockData'
 
 // Simulate API delay
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
@@ -65,6 +71,70 @@ export async function fetchJobOrders(
   }
 
   return orders
+}
+
+/**
+ * Fetch a single job order by id (with full detail)
+ */
+export async function fetchJobOrderById(id: string): Promise<JobOrder | null> {
+  await delay(250)
+  return mockJobOrders.find(order => order.id === id) ?? null
+}
+
+/**
+ * Fetch all candidates for a job order, optionally filtered by stage
+ */
+export async function fetchCandidates(
+  jobOrderId: string,
+  stage?: CandidateStage | 'all',
+  searchQuery = '',
+): Promise<Candidate[]> {
+  await delay(300)
+
+  let candidates = mockCandidates.filter(c => c.jobOrderId === jobOrderId)
+
+  if (stage && stage !== 'all') {
+    candidates = candidates.filter(c => c.stage === stage)
+  }
+
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase()
+    candidates = candidates.filter(
+      c =>
+        c.name.toLowerCase().includes(q) ||
+        c.currentTitle.toLowerCase().includes(q) ||
+        c.currentCompany.toLowerCase().includes(q) ||
+        c.skills?.some(s => s.toLowerCase().includes(q)),
+    )
+  }
+
+  // Sort by appliedDate desc
+  candidates.sort((a, b) => {
+    const [db, mb, yb] = b.appliedDate.split('/').map(Number)
+    const [da, ma, ya] = a.appliedDate.split('/').map(Number)
+    return new Date(yb, mb - 1, db).getTime() - new Date(ya, ma - 1, da).getTime()
+  })
+
+  return candidates
+}
+
+/**
+ * Aggregate stage counts for a job order (for the candidate management page header)
+ */
+export function summarizeCandidateStages(
+  jobOrderId: string,
+): Record<CandidateStage, number> {
+  const candidates = mockCandidates.filter(c => c.jobOrderId === jobOrderId)
+  const summary: Record<CandidateStage, number> = {
+    applied: 0,
+    screening: 0,
+    interview: 0,
+    offer: 0,
+    hired: 0,
+    rejected: 0,
+  }
+  for (const c of candidates) summary[c.stage]++
+  return summary
 }
 
 /**

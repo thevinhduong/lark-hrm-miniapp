@@ -1,0 +1,64 @@
+<view class="candidate-card" bindtap="onTap">
+  <!-- Top row: avatar + name + stage -->
+  <view class="card-top">
+    <view class="avatar-wrap">
+      <image
+        class="avatar"
+        src="{{candidate.avatar}}"
+        mode="aspectFill"
+        wx:if="{{candidate.avatar}}"
+      />
+      <view class="avatar-fallback" wx:else>
+        <text class="avatar-initials">{{initials}}</text>
+      </view>
+    </view>
+    <view class="card-meta">
+      <view class="name-row">
+        <text class="name">{{candidate.name}}</text>
+        <candidate-stage-badge stage="{{candidate.stage}}" />
+      </view>
+      <text class="title">{{candidate.currentTitle}}</text>
+      <text class="company">{{candidate.currentCompany}}</text>
+    </view>
+  </view>
+
+  <!-- Skills -->
+  <view class="skills-row" wx:if="{{candidate.skills && candidate.skills.length}}">
+    <block wx:for="{{candidate.skills}}" wx:key="*this" wx:if="{{index < 4}}">
+      <text class="skill-chip">{{item}}</text>
+    </block>
+    <text class="skill-more" wx:if="{{candidate.skills.length > 4}}">+{{candidate.skills.length - 4}}</text>
+  </view>
+
+  <!-- Bottom row: meta + rating -->
+  <view class="card-bottom">
+    <view class="meta-row">
+      <view class="meta-item">
+        <text class="meta-icon material-icon">work_history</text>
+        <text class="meta-text">{{candidate.yearsOfExperience}} năm KN</text>
+      </view>
+      <view class="meta-item">
+        <text class="meta-icon material-icon">event</text>
+        <text class="meta-text">{{candidate.appliedDate}}</text>
+      </view>
+      <view class="meta-item">
+        <text class="meta-icon material-icon">source</text>
+        <text class="meta-text">{{candidate.source}}</text>
+      </view>
+    </view>
+    <view class="rating" wx:if="{{candidate.rating > 0}}">
+      <text class="star material-icon {{index < filledStars ? 'filled' : ''}}" wx:for="{{[0,1,2,3,4]}}" wx:key="*this">star</text>
+      <text class="rating-value">{{candidate.rating}}</text>
+    </view>
+  </view>
+
+  <!-- Action buttons (shown only when showActions is true — e.g. on Candidates page) -->
+  <view class="actions-row" wx:if="{{showActions}}">
+    <view class="action-btn secondary" catchtap="onDetailTap">
+      <text>Chi tiết</text>
+    </view>
+    <view class="action-btn primary" catchtap="onPrimaryAction">
+      <text>{{primaryActionLabel}}</text>
+    </view>
+  </view>
+</view>

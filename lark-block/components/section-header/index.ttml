@@ -1,0 +1,7 @@
+<view class="section-header">
+  <text class="section-icon material-icon">{{icon}}</text>
+  <text class="section-title">{{title}}</text>
+  <view class="section-action" wx:if="{{actionLabel}}" bindtap="onActionTap">
+    <text class="action-label">{{actionLabel}}</text>
+  </view>
+</view>

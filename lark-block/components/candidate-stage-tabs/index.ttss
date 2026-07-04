@@ -1,0 +1,53 @@
+.tabs-scroll {
+  white-space: nowrap;
+  width: 100%;
+}
+
+.tabs-row {
+  display: inline-flex;
+  gap: 16rpx;
+  padding: 4rpx 0;
+}
+
+.tab-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 12rpx 24rpx;
+  background-color: #ffffff;
+  border: 1rpx solid #e3e3e3;
+  border-radius: 9999px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.tab-pill.active {
+  background-color: #0055c7;
+  border-color: #0055c7;
+  box-shadow: 0 2rpx 4rpx rgba(0, 85, 199, 0.2);
+}
+
+.tab-pill:active {
+  transform: scale(0.97);
+}
+
+.tab-label {
+  font-size: 26rpx;
+  font-weight: 500;
+  color: #444748;
+}
+
+.tab-pill.active .tab-label {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.tab-count {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: #747878;
+}
+
+.tab-count.active {
+  color: rgba(255, 255, 255, 0.85);
+}

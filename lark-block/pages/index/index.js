@@ -2,69 +2,24 @@
  * Recruitment List Page - Main Logic
  */
 
-// Mock data
-const MOCK_JOBS = [
-  {
-    id: '1',
-    title: 'Backend Developer',
-    department: 'Engineering',
-    level: 'Senior',
-    count: 2,
-    status: 'approved',
-    statusLabel: 'Đã duyệt',
-    requesterName: 'Nguyễn Văn An',
-    requesterAvatar: '',
-    requestDate: '03/07/2026',
-  },
-  {
-    id: '2',
-    title: 'Product Designer',
-    department: 'Product',
-    level: 'Mid-level',
-    count: 1,
-    status: 'approved',
-    statusLabel: 'Đã duyệt',
-    requesterName: 'Trần Thị Mai',
-    requesterAvatar: '',
-    requestDate: '01/07/2026',
-  },
-  {
-    id: '3',
-    title: 'QA Engineer',
-    department: 'Quality Assurance',
-    level: 'Junior',
-    count: 1,
-    status: 'approved',
-    statusLabel: 'Đã duyệt',
-    requesterName: 'Lê Minh Đức',
-    requesterAvatar: '',
-    requestDate: '28/06/2026',
-  },
-  {
-    id: '4',
-    title: 'Frontend Developer',
-    department: 'Engineering',
-    level: 'Mid-level',
-    count: 3,
-    status: 'pending',
-    statusLabel: 'Đang xử lý',
-    requesterName: 'Phạm Hương Lan',
-    requesterAvatar: '',
-    requestDate: '02/07/2026',
-  },
-  {
-    id: '5',
-    title: 'Data Analyst',
-    department: 'Data',
-    level: 'Senior',
-    count: 1,
-    status: 'pending',
-    statusLabel: 'Đang xử lý',
-    requesterName: 'Hoàng Đức Anh',
-    requesterAvatar: '',
-    requestDate: '30/06/2026',
-  },
-]
+const app = getApp()
+
+// Status → label mapping (for jobs that don't have statusLabel set)
+const STATUS_LABELS = {
+  approved: 'Đã duyệt',
+  pending: 'Đang xử lý',
+  rejected: 'Đã từ chối',
+  cc: 'CC cho tôi',
+}
+
+// Build initial mock jobs list (combines app global + any extras)
+function buildInitialJobs() {
+  const globalJobs = (app.globalData && app.globalData.MOCK_JOB_ORDERS) || []
+  return globalJobs.map(j => ({
+    ...j,
+    statusLabel: j.statusLabel || STATUS_LABELS[j.status] || j.status,
+  }))
+}
 
 const TABS = [
   { key: 'pending', label: 'Đang xử lý' },
@@ -105,6 +60,8 @@ Page({
   },
 
   onLoad() {
+    // Hydrate from global data
+    this._allJobs = buildInitialJobs()
     this.loadData()
   },
 
@@ -113,7 +70,7 @@ Page({
 
     // Filter jobs by current tab
     const { currentTab, searchQuery, selectedDepartment } = this.data
-    let filtered = MOCK_JOBS.filter(job => job.status === currentTab)
+    let filtered = (this._allJobs || []).filter(job => job.status === currentTab)
 
     if (searchQuery) {
       const q = searchQuery.toLowerCase()
@@ -163,5 +120,13 @@ Page({
 
   onBottomNavChange(e) {
     this.setData({ bottomNavTab: e.detail.tab })
+  },
+
+  onJobOrderTap(e) {
+    const jobOrder = e.detail.jobOrder
+    if (!jobOrder || !jobOrder.id) return
+    tt.navigateTo({
+      url: `/pages/detail/index?id=${jobOrder.id}`,
+    })
   },
 })

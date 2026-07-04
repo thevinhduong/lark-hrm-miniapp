@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "back-app-bar": "/components/back-app-bar/index",
+    "candidate-stage-tabs": "/components/candidate-stage-tabs/index",
+    "candidate-stat-card": "/components/candidate-stat-card/index",
+    "candidate-card": "/components/candidate-card/index",
+    "candidate-stage-badge": "/components/candidate-stage-badge/index",
+    "empty-state": "/components/empty-state/index",
+    "bottom-nav": "/components/bottom-nav/index"
+  }
+}
